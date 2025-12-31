@@ -1,0 +1,908 @@
+_G.Luna = _G.Luna or {}
+local Luna = _G.Luna
+
+function Luna.Start()
+
+ -- ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
+-- ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠟⠋⠉⠀⠀⠈⠉⠻⠿⠿⣿⣿⣿⣿⣿⣿⣿
+-- ⣿⣿⣿⣿⣿⣿⣿⣿⣿⠏⠁⠀⠀⢀⡀⠀⠀⠀⠀⠀⠀⠀⠈⠙⢿⣿⣿⣿⣿
+-- ⣿⣿⣿⣿⣿⣿⣿⡿⠁⠀⠀⢠⣾⠏⠀⠀⠀⢀⣀⣄⣀⠀⠀⠀⠀⠘⣿⣿⣿
+-- ⣿⣿⣿⣿⡿⠟⠃⠀⠀⢰⣿⡟⠀⠀⠀⣸⣿⣿⣿⣿⣿⣿⣿⣷⠀⠀⠀⢿⣿
+-- ⣿⣿⣿⠏⠀⠀⠀⠀⠀⢸⣿⡇⠀⠀⠀⢿⣿⣿⣿⣿⣿⣿⣿⣿⠀⠀⠀⢸⣿⣿
+-- ⣿⣿⡏⠀⠀⢀⠀⠀⠀⢸⣿⣧⠀⠀⠀⠘⣿⣿⣿⣿⣿⣿⡿⠇⠀⠀⠀⣾⣿   
+-- ⣿⣿⠀⠀⠀⣾⠀⠀⠀⢸⣿⣿⣄⠀⠀⠀⠈⠉⠉⠉⠉⠉⠀⠀⠀⠀⣼⣿⣿⣿    --Đứa nào trôm script của tao trứng dái nổ tung--
+-- ⣿⡏⠀⠀⢸⣿⠀⠀⠀⣿⣿⣿⣿⣷⣄⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⣾⣿⣿⣿⣿                                             -Phucs-
+-- ⣿⡇⠀⠀⢸⣿⠀⠀⠀⣿⣿⣿⣿⣿⣿⣿⣶⣤⣤⣤⣶⡶⠀⠀⣿⣿⣿⣿⣿
+-- ⣿⡇⠀⠀⠸⣿⠀⠀⠀⣿⣿⣿⣿⣿⡿⠛⠛⠛⢿⣿⣿⡇⠀⠀⠀⠈⠙⣿⣿
+-- ⣿⣿⡄⠀⠀⠉⠀⠀⠀⣿⣿⣿⣿⣿⣷⣄⠀⠀⠀⠙⢿⣿⣶⣶⣄⠀⠀⢸⣿
+-- ⣿⣿⣿⣤⣀⠀⠀⠀⠀⠈⠛⢿⣿⣿⣿⣿⣷⣆⠀⠀⠸⠿⣿⠟⠁⠀⠀⢸⣿
+-- ⣿⣿⣿⣿⣿⣿⣿⣆⠀⠀⠀⠀⠙⠛⠛⠛⠛⠁⠀⠀⠀⠀⠀⠀⠀⠀⢠⣿⣿⣿
+-- ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣶⣄⡀⠀⠀⠀⠀⠀⠀⣀⣴⣶⣤⣴⣶⣶⣾⣿⣿⣿
+local Player = game.Players.LocalPlayer
+local PlayerGui = Player:WaitForChild("PlayerGui")
+local TweenService = game:GetService("TweenService")
+local LoadingGui = Instance.new("ScreenGui")
+LoadingGui.IgnoreGuiInset = true
+LoadingGui.ResetOnSpawn = false
+LoadingGui.Name = "LoadingScreen"
+LoadingGui.Parent = PlayerGui
+local Background = Instance.new("Frame", LoadingGui)
+Background.Size = UDim2.new(1, 0, 1, 0)
+Background.BackgroundColor3 = Color3.fromRGB(15, 15, 15)
+local LoadingText = Instance.new("TextLabel", Background)
+LoadingText.Size = UDim2.new(1, 0, 0, 60)
+LoadingText.Position = UDim2.new(0, 0, 0.45, 0)
+LoadingText.BackgroundTransparency = 1
+LoadingText.Text = "Đang tải hệ thống..."
+LoadingText.TextColor3 = Color3.fromRGB(255, 255, 255)
+LoadingText.Font = Enum.Font.GothamBold
+LoadingText.TextSize = 32
+local ProgressBarBG = Instance.new("Frame", Background)
+ProgressBarBG.Size = UDim2.new(0.5, 0, 0, 15)
+ProgressBarBG.Position = UDim2.new(0.5, 0, 0.55, 0)
+ProgressBarBG.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+ProgressBarBG.BorderSizePixel = 0
+ProgressBarBG.AnchorPoint = Vector2.new(0.5, 0.5)
+ProgressBarBG.ClipsDescendants = true
+local ProgressBar = Instance.new("Frame", ProgressBarBG)
+ProgressBar.Size = UDim2.new(0, 0, 1, 0)
+ProgressBar.BackgroundColor3 = Color3.fromRGB(0, 200, 255)
+ProgressBar.BorderSizePixel = 0
+local gradient = Instance.new("UIGradient", ProgressBar)
+gradient.Color = ColorSequence.new{
+    ColorSequenceKeypoint.new(0, Color3.fromRGB(0, 200, 255)),
+    ColorSequenceKeypoint.new(1, Color3.fromRGB(0, 255, 150))
+}
+local TeleportPositions = {
+    Vector3.new(629, 3, -866),
+    Vector3.new(-5253, -3, 14627),
+    Vector3.new(4818, 3, -1204),
+    Vector3.new(-5550, -5, 7277),
+    Vector3.new(810, 3, -220),
+    Vector3.new(19032, 66, 666)
+}
+local Total = #TeleportPositions
+local char = Player.Character or Player.CharacterAdded:Wait()
+local hrp = char:WaitForChild("HumanoidRootPart")
+local OriginalPosition = hrp.CFrame
+local function safeTP(pos)
+    local character = Player.Character or Player.CharacterAdded:Wait()
+    local root = character:WaitForChild("HumanoidRootPart")
+    root.CFrame = CFrame.new(pos)
+end
+for i, pos in ipairs(TeleportPositions) do
+    safeTP(pos)
+    local percent = i / Total
+    TweenService:Create(
+        ProgressBar,
+        TweenInfo.new(0.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
+        {Size = UDim2.new(percent, 0, 1, 0)}
+    ):Play()
+    LoadingText.Text = string.format("Đang xử lý... (%d/%d)", i, Total)
+    task.wait(0.35)
+end
+safeTP(OriginalPosition.Position)
+TweenService:Create(
+    Background,
+    TweenInfo.new(0.4, Enum.EasingStyle.Quad),
+    {BackgroundTransparency = 1}
+):Play()
+task.wait(0.4)
+LoadingGui:Destroy()
+local SoundService = game:GetService("SoundService")
+local function playSound(soundId)
+    local sound = Instance.new("Sound")
+    sound.SoundId = "rbxassetid://" .. soundId
+    sound.Parent = SoundService
+    sound:Play()
+    sound.Ended:Connect(function()
+        sound:Destroy()
+    end)
+end
+playSound("2084290015")
+local WindUI
+do
+    local ok, result = pcall(function()
+        return require("./src/Init")
+    end)
+    
+    if ok then
+        WindUI = result
+    else 
+        WindUI = loadstring(game:HttpGet("https://raw.githubusercontent.com/Footagesus/WindUI/main/dist/main.lua"))()
+    end
+end
+
+local Window = WindUI:CreateWindow({
+    Title = "Bus Driver VietNam 2",
+    Author = "by Phucs",
+    Folder = "BDVN2hub",
+    Icon = "github",
+    IconSize = 22*2,
+    NewElements = true,  
+    HideSearchBar = false,
+    OpenButton = {
+        Title = "---Mở---",
+        CornerRadius = UDim.new(1,0),
+        StrokeThickness = 3,
+        Enabled = true,
+        Draggable = true,
+        OnlyMobile = false,
+        Color = ColorSequence.new( -- gradient
+            Color3.fromHex("#30FF6A"), 
+            Color3.fromHex("#e7ff2f")
+        )
+    }
+})
+do
+    Window:Tag({
+        Title = "Phiên bản: 36",
+        Icon = "",
+        Color = Color3.fromHex("#1c1c1c")
+    })
+end
+local function parseJSON(luau_table, indent, level, visited)
+    indent = indent or 2
+    level = level or 0
+    visited = visited or {}
+    local currentIndent = string.rep(" ", level * indent)
+    local nextIndent = string.rep(" ", (level + 1) * indent)
+    if luau_table == nil then
+        return "null"
+    end
+    local dataType = type(luau_table)
+    if dataType == "table" then
+        if visited[luau_table] then
+            return "\"[Circular Reference]\""
+        end
+        visited[luau_table] = true
+        local isArray = true
+        local maxIndex = 0
+        for k, _ in pairs(luau_table) do
+            if type(k) == "number" and k > maxIndex then
+                maxIndex = k
+            end
+            if type(k) ~= "number" or k <= 0 or math.floor(k) ~= k then
+                isArray = false
+                break
+            end
+        end
+        local count = 0
+        for _ in pairs(luau_table) do
+            count = count + 1
+        end
+        if count ~= maxIndex and isArray then
+            isArray = false
+        end
+        if count == 0 then
+            return "{}"
+        end
+        if isArray then
+            if count == 0 then
+                return "[]"
+            end
+            local result = "[\n"
+            for i = 1, maxIndex do
+                result = result .. nextIndent .. parseJSON(luau_table[i], indent, level + 1, visited)
+                if i < maxIndex then
+                    result = result .. ","
+                end
+                result = result .. "\n"
+            end
+            result = result .. currentIndent .. "]"
+            return result
+        else
+            local result = "{\n"
+            local first = true
+            local keys = {}
+            for k in pairs(luau_table) do
+                table.insert(keys, k)
+            end
+            table.sort(keys, function(a, b)
+                if type(a) == type(b) then
+                    return tostring(a) < tostring(b)
+                else
+                    return type(a) < type(b)
+                end
+            end)
+            for _, k in ipairs(keys) do
+                local v = luau_table[k]
+                if not first then
+                    result = result .. ",\n"
+                else
+                    first = false
+                end
+                
+                if type(k) == "string" then
+                    result = result .. nextIndent .. "\"" .. k .. "\": "
+                else
+                    result = result .. nextIndent .. "\"" .. tostring(k) .. "\": "
+                end
+                result = result .. parseJSON(v, indent, level + 1, visited)
+            end
+            result = result .. "\n" .. currentIndent .. "}"
+            return result
+        end
+    elseif dataType == "string" then
+        local escaped = luau_table:gsub("\\", "\\\\")
+        escaped = escaped:gsub("\"", "\\\"")
+        escaped = escaped:gsub("\n", "\\n")
+        escaped = escaped:gsub("\r", "\\r")
+        escaped = escaped:gsub("\t", "\\t")
+        return "\"" .. escaped .. "\""
+    elseif dataType == "number" then
+        return tostring(luau_table)
+    elseif dataType == "boolean" then
+        return luau_table and "true" or "false"
+    elseif dataType == "function" then
+        return "\"function\""
+    else
+        return "\"" .. dataType .. "\""
+    end
+    end
+local function tableToClipboard(luau_table, indent)
+    indent = indent or 4
+    local jsonString = parseJSON(luau_table, indent)
+    setclipboard(jsonString)
+    return jsonString
+end
+
+local AboutTab = Window:Tab({
+        Title = "Thông tin",
+        Icon = "info",
+    })
+
+    local AboutSection = AboutTab:Section({
+        Title = "Thông tin về script",
+    })
+
+    AboutSection:Section({
+        Title = [[Script được tạo bởi Phúc trong lúc đang rảnh :).]],
+        TextSize = 18,
+        TextTransparency = .35,
+        FontWeight = Enum.FontWeight.Medium,
+    })
+
+local Farm = Window:Section({
+    Title = "Farm",
+    Icon = "dollar-sign"
+})
+local Shop = Window:Section({
+    Title = "Shop",
+    Icon = "shopping-cart"
+})
+local Teleport = Window:Tab({
+    Title = "Teleport",
+    Icon = "navigation"
+})
+local Animation = Window:Tab({
+    Title = "Animation",
+    Icon = "clapperboard",
+})
+local Guis = Window:Tab({
+    Title = "Guis",
+    Icon = "layout-grid",
+})
+local ConfigUsage = Window:Section({
+    Title = "Lưu Tùy Chỉnh",
+    Icon = "folder"
+})
+local Farm = Farm:Tab({
+    Title = "Farm",
+    Icon = "dollar-sign"
+})
+local Shop1 = Shop:Tab({
+    Title = "Shop Vũ Khí",
+    Icon = "swords"
+})
+local Shop2 = Shop:Tab({
+    Title = "Shop Lặc Vặt",
+    Icon = "baggage-claim"
+})
+Farm:Toggle({
+    Title = "Farm NK City",
+    Desc = "Farm nhanh",
+    Icon = "dollar-sign",
+    Value = false,
+    Callback = function(state)
+        local part = workspace:WaitForChild("ChoKhachSystem")
+            .KhongXoa
+            :WaitForChild("TargetPart")
+        local promptPart = workspace:WaitForChild("ChoKhachSystem")
+            .KhongXoa
+            :WaitForChild("GetJobPart")
+        local prompt = promptPart:WaitForChild("ProximityPrompt")
+        local tpPos = Vector3.new(810, 3, -220)
+        if state then
+            part.Transparency = 1
+            part.CanCollide = false
+            part.Position = tpPos
+            _G.AutoTP = true
+            task.spawn(function()
+                while _G.AutoTP do
+                    task.wait(0.0001)
+                    local plr = game.Players.LocalPlayer
+                    local char = plr.Character
+                    local hrp = char and char:FindFirstChild("HumanoidRootPart")
+                    if hrp then
+                        hrp.CFrame = CFrame.new(tpPos)
+                    end
+                    if prompt then
+                        prompt:InputHoldBegin()
+                        task.wait(0.0001)
+                        prompt:InputHoldEnd()
+                    end
+                end
+            end)
+        else
+            part.Transparency = 1
+            part.CanCollide = false
+            _G.AutoTP = false
+        end
+    end
+})
+local function getShopItem(textContains)
+    local NK = workspace:WaitForChild("NK ITEM")
+    for _, item in ipairs(NK:GetChildren()) do
+        if item.Name == "Toolshop" then
+            local gui = item:FindFirstChild("SurfaceGui")
+            if gui then
+                local label = gui:FindFirstChild("TextLabel")
+                if label and label.Text:lower():find(textContains:lower()) then
+                    return item
+                end
+            end
+        end
+    end
+    return nil
+end
+Shop2:Button({
+    Title = "Mua BloxyCola",
+    Icon = "cup-soda",
+    Callback = function()
+        local item = getShopItem("BloxyCola")
+        if not item then
+            WindUI:Notify({Title="Không tìm thấy BloxyCola",Icon="x"}); return
+        end
+        local cd = item:FindFirstChildOfClass("ClickDetector")
+        if cd then fireclickdetector(cd); WindUI:Notify({Title="Đã mua BloxyCola",Icon="check"}) end
+    end
+})
+Shop2:Button({
+    Title = "Mua Burger",
+    Icon = "hamburger",
+    Callback = function()
+        local item = getShopItem("Burger")
+        if not item then
+            WindUI:Notify({Title="Không tìm thấy Burger",Icon="x"}); return
+        end
+        local cd = item:FindFirstChildOfClass("ClickDetector")
+        if cd then fireclickdetector(cd); WindUI:Notify({Title="Đã mua Burger",Icon="check"}) end
+    end
+})
+Shop2:Button({
+    Title = "Mua Lò Xo",
+    Icon = "zap",
+    Callback = function()
+        local item = getShopItem("tăng tốc độ chạy nhanh")
+        if not item then
+            WindUI:Notify({Title="Không tìm thấy buff chạy nhanh",Icon="x"}); return
+        end
+        local cd = item:FindFirstChildOfClass("ClickDetector")
+        if cd then fireclickdetector(cd); WindUI:Notify({Title="Đã mua buff chạy nhanh",Icon="check"}) end
+    end
+})
+Shop2:Button({
+    Title = "Mua Ticket",
+    Icon = "ticket",
+    Callback = function()
+        local item = getShopItem("Buy Ticket")
+        if not item then
+            WindUI:Notify({Title="Không tìm thấy Ticket",Icon="x"}); return
+        end
+        local cd = item:FindFirstChildOfClass("ClickDetector")
+        if cd then fireclickdetector(cd); WindUI:Notify({Title="Đã mua Ticket",Icon="check"}) end
+    end
+})
+Shop2:Button({
+    Title = "Mua Đèn Pin",
+    Icon = "flashlight",
+    Callback = function()
+        local item = getShopItem("Mua đèn pin")
+        if not item then
+            WindUI:Notify({Title="Không tìm thấy đèn pin",Icon="x"}); return
+        end
+        local cd = item:FindFirstChildOfClass("ClickDetector")
+        if cd then fireclickdetector(cd); WindUI:Notify({Title="Đã mua đèn pin",Icon="check"}) end
+    end
+})
+Shop2:Button({
+    Title = "Mua Vé Máy Bay",
+    Icon = "plane",
+    Callback = function()
+        local item = getShopItem("Mua Ve May Bay")
+        if not item then
+            WindUI:Notify({Title="Không tìm thấy vé máy bay",Icon="x"}); return
+        end
+        local cd = item:FindFirstChildOfClass("ClickDetector")
+        if cd then fireclickdetector(cd); WindUI:Notify({Title="Đã mua vé máy bay",Icon="check"}) end
+    end
+})
+Shop2:Button({
+    Title = "Mua Căn Cước Công Dân",
+    Icon = "id-card",
+    Callback = function()
+        local item = getShopItem("Căn cước công dân")
+        if not item then
+            WindUI:Notify({Title="Không tìm thấy item",Icon="x"}); return
+        end
+        local cd = item:FindFirstChildOfClass("ClickDetector")
+        if cd then fireclickdetector(cd); WindUI:Notify({Title="Đã mua CCCD",Icon="check"}) end
+    end
+})
+Shop2:Button({
+    Title = "Mua Trowel",
+    Icon = "cuboid",
+    Callback = function()
+        local item = getShopItem("Trowel")
+        if not item then
+            WindUI:Notify({
+                Title = "Không tìm thấy item",
+                Desc = "Không tìm thấy 'Trowel'",
+                Icon = "x"
+            })
+            return
+        end
+        local cd = item:FindFirstChildOfClass("ClickDetector")
+        if cd then
+            fireclickdetector(cd)
+            WindUI:Notify({
+                Title = "Đã mua ",
+                Icon = "check"
+            })
+        else
+            WindUI:Notify({
+                Title = "Lỗi",
+                Icon = "alert-triangle"
+            })
+        end
+    end
+})
+Shop2:Button({
+    Title = "Mua Giấy phép lái xe",
+    Icon = "id-card",
+    Callback = function()
+        local item = getShopItem("Giấy phép lái xe")
+        if not item then
+            WindUI:Notify({
+                Title = "Không tìm thấy item",
+                Desc = "Không tìm thấy 'Giấy phép lái xe: 100VND'",
+                Icon = "x"
+            })
+            return
+        end
+        local cd = item:FindFirstChildOfClass("ClickDetector")
+        if cd then
+            fireclickdetector(cd)
+            WindUI:Notify({
+                Title = "Đã mua ",
+                Icon = "check"
+            })
+        else
+            WindUI:Notify({
+                Title = "Lỗi",
+                Icon = "alert-triangle"
+            })
+        end
+    end
+})
+Shop1:Button({
+    Title = "Mua RPG",
+    Icon = "rocket",
+    Callback = function()
+        local item = getShopItem("RPG")
+        if not item then
+            WindUI:Notify({
+                Title = "Không tìm thấy item",
+                Desc = "Không tìm thấy 'RPG: 100000 VND'",
+                Icon = "x"
+            })
+            return
+        end
+        local cd = item:FindFirstChildOfClass("ClickDetector")
+        if cd then
+            fireclickdetector(cd)
+            WindUI:Notify({
+                Title = "Đã mua RPG",
+                Icon = "check"
+            })
+        else
+            WindUI:Notify({
+                Title = "Lỗi",
+                Desc = "Không có ClickDetector!",
+                Icon = "alert-triangle"
+            })
+        end
+    end
+})
+Shop1:Button({
+    Title = "Time_Ball",
+    Icon = "rocket",
+    Callback = function()
+        local item = getShopItem("Time_Ball")
+        if not item then
+            WindUI:Notify({
+                Title = "Không tìm thấy item",
+                Desc = "Không tìm thấy 'Time_Ball'",
+                Icon = "x"
+            })
+            return
+        end
+        local cd = item:FindFirstChildOfClass("ClickDetector")
+        if cd then
+            fireclickdetector(cd)
+            WindUI:Notify({
+                Title = "Đã mua Time_Ball",
+                Icon = "check"
+            })
+        else
+            WindUI:Notify({
+                Title = "Lỗi",
+                Desc = "Không có ClickDetector!",
+                Icon = "alert-triangle"
+            })
+        end
+    end
+})
+Shop1:Button({
+    Title = "Mua Classic Sword",
+    Icon = "sword",
+    Callback = function()
+        local item = getShopItem("Classic Sword")
+        if not item then
+            WindUI:Notify({
+                Title = "Không tìm thấy item",
+                Desc = "Không tìm thấy 'Classic Sword: 200 VND'",
+                Icon = "x"
+            })
+            return
+        end
+        local cd = item:FindFirstChildOfClass("ClickDetector")
+        if cd then
+            fireclickdetector(cd)
+            WindUI:Notify({
+                Title = "Đã mua Classic Sword",
+                Icon = "check"
+            })
+        else
+            WindUI:Notify({
+                Title = "Lỗi",
+                Desc = "Không có ClickDetector của item này!",
+                Icon = "alert-triangle"
+            })
+        end
+    end
+})
+local teleportList = {
+    ["Sảnh"] = Vector3.new(17, 4, -2015),
+    ["Quán Cafe"] = Vector3.new(613, 3, -940)
+}
+local selectedTP = nil
+local TPDropdown = Teleport:Dropdown({
+    Title = "Chọn địa điểm",
+    Desc = "Chọn nơi muốn dịch chuyển",
+    Values = {"Sảnh", "Quán Cafe"},
+    Value = "Sảnh", -- mặc định
+    Callback = function(selected)
+        selectedTP = teleportList[selected]
+    end
+})
+Teleport:Button({
+    Title = "Dịch chuyển ngay",
+    Desc = "Bấm để đến vị trí đã chọn",
+    Icon = "map-pin",
+    Callback = function()
+        if not selectedTP then
+            WindUI:Notify({
+                Title = "Chưa chọn điểm",
+                Desc = "Vui lòng chọn địa điểm trước",
+                Icon = "x"
+            })
+            return
+        end
+        local player = game.Players.LocalPlayer
+        local char = player.Character or player.CharacterAdded:Wait()
+        local hrp = char:WaitForChild("HumanoidRootPart")
+
+        hrp.CFrame = CFrame.new(selectedTP)
+    end
+})
+Guis:Button({
+    Title = "Infinite Yield",
+    Icon = "file-text",
+    Callback = function()
+        WindUI:Notify({
+            Title = "Đang Chạy Script",
+            Time = 3
+        })
+        local url = "https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source"
+        local success, result = pcall(function()
+            local scriptFunc = loadstring(game:HttpGet(url))
+            if scriptFunc then
+                scriptFunc()
+            end
+        end)
+        if success then
+            WindUI:Notify({
+                Title = "Thành công",
+                Description = "Script đã chạy xong!",
+                Time = 3
+            })
+        else
+            WindUI:Notify({
+                Title = "Lỗi",
+                Description = "Script gặp lỗi: " .. tostring(result),
+                Time = 5
+            })
+        end
+    end
+})
+Guis:Button({
+    Title = "Nhạc",
+    Icon = "file-text",
+    Callback = function()
+        WindUI:Notify({
+            Title = "Đang Chạy Script",
+            Time = 3
+        })
+        local url = "https://raw.githubusercontent.com/phuczsibiditoite-oss/Ac6.lua/refs/heads/main/luna"
+        local success, result = pcall(function()
+            local scriptFunc = loadstring(game:HttpGet(url))
+            if scriptFunc then
+                scriptFunc()
+            end
+        end)
+        if success then
+            WindUI:Notify({
+                Title = "Thành công",
+                Description = "Script đã chạy xong!",
+                Time = 3
+            })
+        else
+            WindUI:Notify({
+                Title = "Lỗi",
+                Description = "Script gặp lỗi: " .. tostring(result),
+                Time = 5
+            })
+        end
+    end
+})
+Guis:Button({
+    Title = "The block's aura",
+    Icon = "file-text",
+    Callback = function()
+        WindUI:Notify({
+            Title = "Đang Chạy Script",
+            Time = 3
+        })
+        local url = "https://raw.githubusercontent.com/phuczsibiditoite-oss/Theblocksaura.lua/refs/heads/main/luna"
+        local success, result = pcall(function()
+            local scriptFunc = loadstring(game:HttpGet(url))
+            if scriptFunc then
+                scriptFunc()
+            end
+        end)
+        if success then
+            WindUI:Notify({
+                Title = "Thành công",
+                Description = "Script đã chạy xong!",
+                Time = 3
+            })
+        else
+            WindUI:Notify({
+                Title = "Lỗi",
+                Description = "Script gặp lỗi: " .. tostring(result),
+                Time = 5
+            })
+        end
+    end
+})
+Guis:Button({
+    Title = "Reach Gui",
+    Icon = "file-text",
+    Callback = function()
+        WindUI:Notify({
+            Title = "Đang Chạy Script",
+            Time = 3
+        })
+        local url = "https://raw.githubusercontent.com/phuczsibiditoite-oss/Reachgui.lua/refs/heads/main/luna"
+        local success, result = pcall(function()
+            local scriptFunc = loadstring(game:HttpGet(url))
+            if scriptFunc then
+                scriptFunc()
+            end
+        end)
+        if success then
+            WindUI:Notify({
+                Title = "Thành công",
+                Description = "Script đã chạy xong!",
+                Time = 3
+            })
+        else
+            WindUI:Notify({
+                Title = "Lỗi",
+                Description = "Script gặp lỗi: " .. tostring(result),
+                Time = 5
+            })
+        end
+    end
+})
+Guis:Button({
+    Title = "Chỉnh Hitbox",
+    Icon = "file-text",
+    Callback = function()
+        WindUI:Notify({
+            Title = "Đang Chạy Script",
+            Time = 3
+        })
+        local url = "https://raw.githubusercontent.com/phuczsibiditoite-oss/Hitbox.lua/refs/heads/main/luna"
+        local success, result = pcall(function()
+            local scriptFunc = loadstring(game:HttpGet(url))
+            if scriptFunc then
+                scriptFunc()
+            end
+        end)
+        if success then
+            WindUI:Notify({
+                Title = "Thành công",
+                Description = "Script đã chạy xong!",
+                Time = 3
+            })
+        else
+            WindUI:Notify({
+                Title = "Lỗi",
+                Description = "Script gặp lỗi: " .. tostring(result),
+                Time = 5
+            })
+        end
+    end
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+do
+    local ConfigTab = ConfigUsage:Tab({
+        Title = "Lưu Tùy Chỉnh",
+        Icon = "folder",
+    })
+    local ConfigManager = Window.ConfigManager
+    local ConfigName = "default"
+    local ConfigNameInput = ConfigTab:Input({
+        Title = "Tên Cài đặt",
+        Icon = "file-cog",
+        Callback = function(value)
+            ConfigName = value
+        end
+    })
+    ConfigTab:Space()
+    local AutoLoadToggle = ConfigTab:Toggle({
+        Title = "Auto load cài đặt đã chọn",
+        Value = false,
+        Callback = function(v)
+            Window.CurrentConfig:SetAutoLoad(v)
+        end
+    })
+    ConfigTab:Space()
+    local AllConfigs = ConfigManager:AllConfigs()
+    local DefaultValue = table.find(AllConfigs, ConfigName) and ConfigName or nil
+    local AllConfigsDropdown = ConfigTab:Dropdown({
+        Title = "Tất Cả Cài Đặt",
+        Desc = "Select existing configs",
+        Values = AllConfigs,
+        Value = DefaultValue,
+        Callback = function(value)
+            ConfigName = value
+            ConfigNameInput:Set(value)
+            AutoLoadToggle:Set(ConfigManager:GetConfig(ConfigName).AutoLoad or false)
+        end
+    })
+    ConfigTab:Space()
+    ConfigTab:Button({
+        Title = "Lưu Cài Đặt",
+        Icon = "",
+        Justify = "Center",
+        Callback = function()
+            Window.CurrentConfig = ConfigManager:Config(ConfigName)
+            if Window.CurrentConfig:Save() then
+                WindUI:Notify({
+                    Title = "Đã Lưu Cài Đặt",
+                    Desc = "Cài Đặt '" .. ConfigName .. "' Đã Lưu",
+                    Icon = "check",
+                })
+            end
+            AllConfigsDropdown:Refresh(ConfigManager:AllConfigs())
+        end
+    })
+    ConfigTab:Space()
+    ConfigTab:Button({
+        Title = "Load Cài Đặt",
+        Icon = "",
+        Justify = "Center",
+        Callback = function()
+            Window.CurrentConfig = ConfigManager:CreateConfig(ConfigName)
+            if Window.CurrentConfig:Load() then
+                WindUI:Notify({
+                    Title = "Đã Load Cài Đặt",
+                    Desc = "Cài đặt '" .. ConfigName .. "'Đã load",
+                    Icon = "refresh-cw",
+                })
+            end
+        end
+    })
+    ConfigTab:Space()
+    ConfigTab:Button({
+        Title = "Print AutoLoad Configs",
+        Icon = "",
+        Justify = "Center",
+        Callback = function()
+            print(HttpService:JSONDecode(ConfigManager:GetAutoLoadConfigs()))
+        end
+    })
+end
+do
+    local NebulaIcons = loadstring(game:HttpGetAsync("https://raw.nebulasoftworks.xyz/nebula-icon-library-loader"))()
+    WindUI.Creator.AddIcons("fluency",    NebulaIcons.Fluency)
+    WindUI.Creator.AddIcons("nebula",    NebulaIcons.nebulaIcons)
+end
+
+local Players = game:GetService("Players")
+local UserInputService = game:GetService("UserInputService")
+local StarterGui = game:GetService("StarterGui")
+local userId = Players:GetUserIdFromNameAsync("xxitatzukixx")
+local thumbType = Enum.ThumbnailType.HeadShot
+local thumbSize = Enum.ThumbnailSize.Size420x420
+local content, isReady = Players:GetUserThumbnailAsync(userId, thumbType, thumbSize)
+
+StarterGui:SetCore("SendNotification", {
+    Title = "Ê",
+    Text = "Mong là bro thích script này!",
+    Icon = content,
+    Duration = 10
+})
+
+StarterGui:SetCore("SendNotification", {
+    Title = "Lên tiktok fl tui đi",
+    Text = "Acc tiktok:PhucsScripter",
+    Icon = content,
+    Duration = 10
+})
+
+StarterGui:SetCore("SendNotification", {
+    Title = "Được Tạo bởi",
+    Text = "Phucs!",
+    Icon = content,
+    Duration = 10
+})
+
+end
+
+function Luna.Stop()
+    if game.Players.LocalPlayer:FindFirstChild("PlayerGui") then
+        local gui = game.Players.LocalPlayer.PlayerGui:FindFirstChild("LoadingScreen")
+        if gui then gui:Destroy() end
+    end
+    _G.AutoTP = false
+end
+
+return Luna
